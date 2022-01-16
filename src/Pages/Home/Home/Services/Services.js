@@ -2,7 +2,7 @@ import React from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Service from '../../Service/Service';
 import fluoride from '../../../../images/fluoride.png';
 import cavity from '../../../../images/cavity.png';
@@ -35,14 +35,21 @@ const Services = () => {
     
       <Box sx={{ flexGrow: 1 }}>
      <container>
-     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-       {
+     <Typography style={{fontWeight:400,fontSize:'18px',color:'#189E9C',marginTop:'20px'}} variant="h6" >
+          OUR SERVICES
+        </Typography>
+        <Typography style={{ fontWeight:700,margin:'29px',color:'#01121E',fontFamily:'inherit'}} variant="h4" >
+          Service We Provide
+        </Typography>
+     <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+     {
          services.map(service => <Service
          key={service.name}
-         service ={service}d
-         
-         ></Service>)
-       }
+         service ={service} >
+           
+         </Service>)
+}
+  
       </Grid>
      </container>
     </Box>
