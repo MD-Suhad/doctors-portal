@@ -8,8 +8,9 @@ import Services from './Services/Services';
 const Home = () => {
    return (
       <div>
-      <Container>
       <Navigation></Navigation>
+      <Container>
+      
       <Banner></Banner>
       <Services></Services>
         <AppointmentBanner></AppointmentBanner>
