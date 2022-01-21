@@ -1,13 +1,19 @@
-import { Container } from '@mui/material';
+import { Container,Alert } from '@mui/material';
 import React from 'react';
 import login from '../../../images/login.png';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Grid, Typography } from '@mui/material';
+import useAuth from '../../../Hooks/useAuth.js';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Register = () => {
-   const [loginData,setLoginData] = useState({})
+   const [loginData,setLoginData] = useState({});
+   //console.log(loginData)
+
+   const {user,registerUser,isLoading,authError} = useAuth();
+   console.log(registerUser);
 
    const handleOnChange = e =>{
       const field = e.target.name;
@@ -26,6 +32,7 @@ const Register = () => {
          alert('password did not Match');
          return;
       }
+      registerUser(loginData.email,loginData.password);
       e.preventDefault();
    }
    return (
@@ -35,7 +42,7 @@ const Register = () => {
             <Grid sx={{mt:15}}  item xs={12} md={6}>
                <Typography sx={{fontWidth:400,color:''}} variant='h5' gutterBottom>Register</Typography>
 
-               <form onSubmit={handleLoginSubmit}>
+               {!isLoading && <form onSubmit={handleLoginSubmit}>
                   <TextField 
 
                      sx={{width:'75%',my:2}}
@@ -67,7 +74,15 @@ const Register = () => {
                      style={{textDecoration:'none'}}
                       to ="login">
                          <Button variant="outlined">Already Registered? Please Login</Button></NavLink>
-               </form>
+               </form>}
+               {
+                  
+                  isLoading && <CircularProgress />
+               }
+               {user?.email &&
+                     <Alert severity="success">This is successfully registered!</Alert>
+               }
+               {authError && <Alert severity="error">Error Typing</Alert> }
 
             </Grid>
             <Grid
