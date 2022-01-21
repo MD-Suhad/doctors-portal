@@ -3,15 +3,23 @@ import React from 'react';
 import login from '../../images/login.png';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth.js';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const Login = () => {
 
    const [loginData,setLoginData] = useState({})
-   const{user,loginUser,isLoading,authError} = useAuth();
+   const{user,loginUser,isLoading,authError,signInWithGoogle} = useAuth();
    //console.log(loginUser);
+
+
+      const location = useLocation();
+      const history = useHistory();
+
+
+
+
 
    const handleOnChange = e =>{
       const field = e.target.name;
@@ -24,12 +32,22 @@ const Login = () => {
       
    }
    const handleLoginSubmit = e => {
-      loginUser(loginData.email ,loginData.password)
+      loginUser(loginData.email ,loginData.password,location,history)
       e.preventDefault();
       console.log(loginData.email,loginData.password);
       
    }
+
+   ///google pop in log in
    
+   const handleGoogleSignIn = e =>{
+      signInWithGoogle(location,history);
+      e.preventDefault();
+
+   }
+
+
+
    return (
       <Container>
          <Grid container spacing={2}>
@@ -37,7 +55,7 @@ const Login = () => {
             <Grid sx={{mt:15}}  item xs={12} md={6}>
                <Typography sx={{fontWidth:400,color:''}} variant='h5' gutterBottom>Login</Typography>
 
-              { !isLoading && <form onSubmit={handleLoginSubmit}>
+             {!isLoading &&<form onSubmit={handleLoginSubmit}>
                   <TextField 
 
                      sx={{width:'75%',my:2}}
@@ -61,14 +79,15 @@ const Login = () => {
                          <Button variant="outlined">New User? Please Register</Button></NavLink>
                </form>}
 
-               {
-                  
-                  isLoading && <CircularProgress/>
-               }
+               {isLoading && <CircularProgress/>}
                {user?.email &&
                      <Alert severity="success">This is successfully registered!</Alert>
                }
                { authError && <Alert severity="error">Error Typing</Alert> }
+
+               <br/>
+               <p>---------------------------------</p>
+               <Button onClick={handleGoogleSignIn} sx={{width:'75%', my:2,backgroundColor:'#0577A8'}} variant ="contained" type="submit" >Google Sign In</Button>
 
 
             </Grid>
