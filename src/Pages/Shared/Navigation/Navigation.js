@@ -29,6 +29,7 @@ const Navigation = () => {
             Doctor's Portal
           </Typography>
           <Link to="/appointment"><Button color="inherit">Appointment</Button></Link>
+          <Link to="/dashboard"><Button color="inherit">Dashboard</Button></Link>
          
          {
            user?.email?

@@ -14,14 +14,14 @@ const Register = () => {
    //console.log(loginData)
 
    const {user,registerUser,isLoading,authError} = useAuth();
-   console.log(registerUser);
+   //console.log(registerUser);
 
    const handleOnBlur = e =>{
       const field = e.target.name;
       const value = e.target.value;
       const newLoginData = {...loginData}
       newLoginData[field] = value;
-      console.log(newLoginData);
+      //console.log(newLoginData);
       //console.log(field,value,newLoginData)
       setLoginData(newLoginData);
 
@@ -35,6 +35,7 @@ const Register = () => {
          return;
       }
       registerUser(loginData.email,loginData.password,loginData.name,history);
+      console.log(registerUser);
       e.preventDefault();
    }
    return (
